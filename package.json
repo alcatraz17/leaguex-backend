@@ -1,0 +1,19 @@
+{
+  "name": "leaguex-backend",
+  "version": "1.0.0",
+  "description": "This repository contains backend assignment provided by leagueX gaming.",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alcatraz17/leaguex-backend.git"
+  },
+  "author": "Naved Anjum",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alcatraz17/leaguex-backend/issues"
+  },
+  "homepage": "https://github.com/alcatraz17/leaguex-backend#readme"
+}
