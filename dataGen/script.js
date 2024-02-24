@@ -1,7 +1,8 @@
 const { MongoClient } = require('mongodb');
 const faker = require('faker');
+require('dotenv').config();
 
-const uri = 'mongodb://127.0.0.1:27017';
+const { MONGO_URI: uri } = process.env;
 
 (async () => {
   try {
@@ -66,7 +67,7 @@ const uri = 'mongodb://127.0.0.1:27017';
     const posts = [];
     for (let i = 0; i < 1000; i++) {
       posts.push({
-        text: faker.lorem.paragraph(),
+        text: faker.lorem.sentence(),
         sport_id: faker.random.arrayElement([1, 2, 3]),
         event_id: faker.random.arrayElement([1, 2, 3, 4, 5, 6, 17]),
         comments: faker.datatype.number(10),
