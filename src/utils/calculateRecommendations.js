@@ -1,14 +1,21 @@
 const Users = require('../models/User');
 
-async function getRecommendations(user, limit = 15, page = 1, pageSize = 10) {
+async function getRecommendations(
+  user = {},
+  limit = 15,
+  page = 1,
+  pageSize = 10
+) {
+  const { popularityScore = 0, interests = [] } = user;
+
   const recommendations = await Users.find(
     {
       user_id: { $ne: user.user_id }, // Exclude the current user
       popularityScore: {
-        $gte: user.popularityScore - 500,
-        $lte: user.popularityScore + 500
+        $gte: popularityScore - 500,
+        $lte: popularityScore + 500
       }, // Adjust the range as needed
-      interests: { $in: user.interests }
+      interests: { $in: interests }
     },
     {
       _id: 0,

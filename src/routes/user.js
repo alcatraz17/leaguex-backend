@@ -20,6 +20,7 @@ router.get('/recommendations', async (req, res) => {
       return res.json(recommendations);
     }
 
+
     // If not in cache, calculate recommendations
     const recommendations = await getRecommendations(user);
 
