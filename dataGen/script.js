@@ -25,19 +25,6 @@ const { MONGO_URI: uri } = process.env;
 
     console.log('Collections dropped');
 
-    // Create users
-    const users = [];
-    for (let i = 0; i < 100; i++) {
-      users.push({
-        name: faker.name.findName(),
-        interests: faker.random.arrayElements([1, 2, 3, 4], 2),
-        user_id: i + 1
-      });
-    }
-
-    await Users.insertMany(users);
-    console.log(`${users.length} users inserted`);
-
     // Create sports
     const sports = [
       { name: 'Cricket' },
@@ -61,6 +48,10 @@ const { MONGO_URI: uri } = process.env;
       { name: 'Athletics' },
       { name: 'Gymnastics' }
     ];
+
+    sports.forEach((sport, index) => {
+      sport.sport_id = index + 1;
+    });
 
     await Sports.insertMany(sports);
     console.log(`${sports.length} sports inserted`);
@@ -188,6 +179,18 @@ const { MONGO_URI: uri } = process.env;
       { name: 'Mediterranean Games', sport_id: 20 },
       { name: 'African Games', sport_id: 20 }
     ];
+
+    // Create users and add random interests in array from sports and event names
+    const users = [];
+    for (let i = 0; i < 100; i++) {
+      users.push({
+        name: faker.name.findName(),
+        user_id: i + 1
+      });
+    }
+
+    await Users.insertMany(users);
+    console.log(`${users.length} users inserted`);
 
     // add event_id
     events.forEach((event, index) => {
