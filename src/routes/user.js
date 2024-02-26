@@ -5,7 +5,7 @@ const User = require('../models/User');
 const getRecommendations = require('../utils/calculateRecommendations');
 
 router.get('/recommendations', async (req, res) => {
-  const { user_id, page = 1, pageSize = 10 } = req.query;
+  const { user_id } = req.query;
 
   try {
     const user = await User.findOne({ user_id });

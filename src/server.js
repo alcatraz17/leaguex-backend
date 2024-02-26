@@ -6,10 +6,10 @@ const cors = require('cors');
 const redis = require('redis');
 const cron = require('node-cron');
 require('dotenv').config();
-const app = express();
 const refreshCache = require('../cron/refreshCache');
 const router = require('./routes/index');
 
+const app = express();
 const { MONGO_URI, PORT } = process.env;
 
 /////////////////////////////////////////////////// Middlewares ///////////////////////////////////////////////////////////////
