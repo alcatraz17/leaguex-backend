@@ -1,39 +1,48 @@
-"use strict";
+'use strict';
 
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-require("dotenv").config();
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const redis = require('redis');
+const cron = require('node-cron');
+require('dotenv').config();
 const app = express();
+const refreshCache = require('../cron/refreshCache');
+const router = require('./routes/index');
 
-const { URI, PORT } = process.env;
-const routes = require("./src/routes");
+const { MONGO_URI, PORT } = process.env;
 
 /////////////////////////////////////////////////// Middlewares ///////////////////////////////////////////////////////////////
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-app.use("/", routes);
-mongoose.set("strictQuery", false);
+mongoose.set('strictQuery', false);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 try {
-  mongoose.connect(URI);
+  mongoose.connect(MONGO_URI);
 } catch (error) {
-  console.error("Connection to the database failed!");
+  console.error('Connection to the database failed!');
 }
 
 const db = mongoose.connection;
 
-db.on("error", (error) => {
-  console.error("Connection to the database failed!");
+// console.log(global.redisClient);
+
+db.on('error', (error) => {
+  console.error('Connection to the database failed!');
+  console.error(error);
 });
 
-db.once("open", () => {
-  console.log("Connection to the database successful!");
+db.once('open', () => {
+  console.log('Connection to the database successful!');
 });
+
+app.use('/api', router);
+
+cron.schedule('*/15 * * * *', refreshCache);
 
 app.listen(PORT, () => console.log(`App started on port: ${PORT}`));
 
