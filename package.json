@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha --timeout 10000 tests/**/*.test.js",
-    "data-gen": "node ./dataGen/script.js"
+    "data-gen": "node ./dataGen/script.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
