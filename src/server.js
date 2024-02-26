@@ -40,6 +40,10 @@ db.once('open', () => {
   console.log('Connection to the database successful!');
 });
 
+app.get('/', (req, res) => {
+  res.sendStatus(200);
+});
+
 app.use('/api', router);
 
 cron.schedule('*/15 * * * *', refreshCache);
